@@ -23,7 +23,14 @@ load_dotenv_config()
 config = load_config()
 embed_text = create_embedder(config)
 astro = FastAPI()
-chroma_client = get_chroma_client()
+# Chromaクライアントは起動時に非同期で初期化する
+chroma_client = None
+
+@astro.on_event("startup")
+async def startup_event() -> None:
+    """アプリ起動時に Chroma クライアントを初期化する"""
+    global chroma_client
+    chroma_client = await get_chroma_client()
 SCHEMA_DIR = Path(config.schema_dir)
 BEARER_DIR = Path(config.astro_api_key_dir)
 
@@ -103,48 +110,48 @@ def embed(req: EmbedRequest, _: None = Depends(validate_api_key)):
 
 
 @astro.post("/query")
-def query(req: QueryRequest, _: None = Depends(validate_api_key)):
+async def query(req: QueryRequest, _: None = Depends(validate_api_key)):
     vector = embed_text(req.query)
-    results = query_collection(chroma_client, req.collection, vector, req.top_k)
+    results = await query_collection(chroma_client, req.collection, vector, req.top_k)
     return results
 
 
 @astro.post("/add")
-def add(req: AddRequest, _: None = Depends(validate_api_key)):
+async def add(req: AddRequest, _: None = Depends(validate_api_key)):
     try:
-        result = add_to_collection(chroma_client, req.collection, req.items)
+        result = await add_to_collection(chroma_client, req.collection, req.items)
         return {"status": "ok", "count": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @astro.post("/collection")
-def create_collection_endpoint(req: CreateCollectionRequest, _: None = Depends(validate_api_key)):
+async def create_collection_endpoint(req: CreateCollectionRequest, _: None = Depends(validate_api_key)):
     try:
         # スキーマ存在チェック
         schema_path = SCHEMA_DIR / req.schema_file
         if not schema_path.exists():
             raise HTTPException(status_code=400, detail="Schema not found.")
 
-        result = create_collection(chroma_client, req.name, req.schema_file)
+        result = await create_collection(chroma_client, req.name, req.schema_file)
         return {"status": "created", "collection_id": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @astro.get("/collection/{collection_name}/documents")
-def get_documents_by_collection(collection_name: str, _: None = Depends(validate_api_key)):
+async def get_documents_by_collection(collection_name: str, _: None = Depends(validate_api_key)):
     try:
-        documents = get_collection_documents(chroma_client, collection_name)
+        documents = await get_collection_documents(chroma_client, collection_name)
         return {"documents": documents}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @astro.get("/collection/{collection_id}/type")
-def get_collection_type_by_id(collection_id: str, _: None = Depends(validate_api_key)):
+async def get_collection_type_by_id(collection_id: str, _: None = Depends(validate_api_key)):
     try:
-        collection_type = get_collection_type(chroma_client, collection_id)
+        collection_type = await get_collection_type(chroma_client, collection_id)
         return {"collection_type": collection_type}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
