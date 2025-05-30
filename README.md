@@ -152,7 +152,6 @@ PROJECT_ID=QUANTARIL_CLOUD
 * スキーマベースで**文脈制御と思想の伝承**が可能
 * FastAPI×ChromaDBで高速・軽量なAI人格エッジ稼働
 * アストラル人格APIを OSS ライセンスで共有可能に
-以下は、`README.md` に追記すべき「DEMO」セクションの提案です。**`demo/FoldAccessMapper.proton.md` を使って説明可能AIをファインチューンする方法**にフォーカスし、学習/実装導入の入口として自然な構成にしています。
 
 ---
 
