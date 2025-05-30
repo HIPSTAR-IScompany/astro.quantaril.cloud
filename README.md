@@ -87,6 +87,23 @@ pip install -r requirements.txt
 uvicorn astro.main:astro --reload --host 0.0.0.0 --port 8000
 ```
 
+### Docker での起動
+
+Dockerfile と `docker-compose.yml` を用意しています。
+
+#### Docker イメージのビルド
+
+```bash
+docker build -t astro-api .
+docker run --env-file .env -p 8000:8000 astro-api
+```
+
+#### docker compose
+
+```bash
+docker compose up -d
+```
+
 ---
 
 ## 📄 .env 設定例
