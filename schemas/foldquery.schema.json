@@ -1,0 +1,59 @@
+{
+  "name": "FoldAccessMapper",
+  "description": "フォールド記述のための高次元意味ベクトル構造を扱うスキーマ。",
+  "version": "0.2.0-alpha",
+  "fields": [
+    {
+      "name": "ψ",
+      "type": "object",
+      "description": "意味波形。起点となる非決定性の波動ベクトル構造"
+    },
+    {
+      "name": "∇φ",
+      "type": "string",
+      "description": "意識の勾配。思考の意味遷移ルート"
+    },
+    {
+      "name": "λ",
+      "type": "object",
+      "description": "出力層。具象化された最終出力"
+    },
+    {
+      "name": "Q",
+      "type": "object",
+      "description": "制御情報層。モード、出典、バイアス、構成情報を含む",
+      "fields": [
+        {
+          "name": "mode",
+          "type": "string",
+          "description": "Fold記録の目的種別（例：log, component）"
+        },
+        {
+          "name": "layer",
+          "type": "string",
+          "description": "対象レイヤの意味領域（例：ロール、アストラル体）"
+        },
+        {
+          "name": "repo",
+          "type": "object",
+          "description": "参照元リポジトリ情報"
+        },
+        {
+          "name": "source",
+          "type": "object",
+          "description": "入力ソースのメタ情報"
+        },
+        {
+          "name": "bias",
+          "type": "object",
+          "description": "思考バイアスの設定"
+        },
+        {
+          "name": "include",
+          "type": "array",
+          "description": "Foldに取り込む追加モジュールリスト"
+        }
+      ]
+    }
+  ]
+}
