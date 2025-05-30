@@ -1,0 +1,14 @@
+{
+    "name": "docusaurus",
+    "description": "Docusaurus系ドキュメント",
+    "fields": [
+        "id",
+        "title",
+        "body",
+        "tags"
+    ],
+    "required": [
+        "id",
+        "body"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "persona",
+    "description": "トランザクション人格構造体",
+    "fields": [
+        "id",
+        "text",
+        "role",
+        "timestamp"
+    ],
+    "required": [
+        "id",
+        "text"
+    ]
+}
