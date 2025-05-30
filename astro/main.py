@@ -7,6 +7,7 @@ import os
 import json
 
 from astro.utils import load_config, load_dotenv_config
+from astro.embedder import create_embedder
 from astro.chroma_client import (
     get_chroma_client,
     query_collection,
@@ -15,12 +16,12 @@ from astro.chroma_client import (
     get_collection_documents,
     get_collection_type
 )
-from astro.embedder import embed_text
 from astro.models import DocumentItem, SchemaDefinition
 
 # ─── 初期化 ───
 load_dotenv_config()
 config = load_config()
+embed_text = create_embedder(config)
 astro = FastAPI()
 chroma_client = get_chroma_client()
 SCHEMA_DIR = Path(config.schema_dir)
