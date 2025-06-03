@@ -1,9 +1,10 @@
-from fastapi import FastAPI, HTTPException, Header, Depends
+from fastapi import FastAPI, HTTPException, Depends, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
 from typing import Optional, List
 from pathlib import Path
 from datetime import datetime
-import os
 import json
 import asyncio
 import subprocess
@@ -46,6 +47,27 @@ astro = FastAPI(
         }
     }
 )
+
+def custom_openapi() -> dict:
+    if astro.openapi_schema:
+        return astro.openapi_schema
+    openapi_schema = get_openapi(
+        title=astro.title,
+        version=astro.version,
+        description=astro.description,
+        routes=astro.routes,
+    )
+    openapi_schema.setdefault("components", {}).setdefault("securitySchemes", {})[
+        "BearerAuth"
+    ] = {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+    }
+    astro.openapi_schema = openapi_schema
+    return astro.openapi_schema
+
+astro.openapi = custom_openapi
 # Chromaクライアントは起動時に非同期で初期化する
 chroma_client = None
 chroma_process = None
@@ -79,16 +101,24 @@ async def shutdown_event() -> None:
 SCHEMA_DIR = Path(config.schema_dir)
 BEARER_DIR = Path(config.astro_api_key_dir)
 
+security_scheme = HTTPBearer(
+    bearerFormat="JWT",
+    scheme_name="BearerAuth",
+    auto_error=False,
+)
+
 # ────────────────────────────────
 # APIキー検証ユーティリティ
 # ────────────────────────────────
-def validate_api_key(authorization: Optional[str] = Header(None, alias="Authorization")) -> None:
+def validate_api_key(
+    credentials: Optional[HTTPAuthorizationCredentials] = Security(security_scheme),
+) -> None:
     if config.astro_api_key_mode.lower() != "bearer":
         return
-    if not authorization:
+    if not credentials:
         raise HTTPException(status_code=401, detail="Missing Authorization header")
 
-    token = authorization.replace("Bearer ", "").strip()
+    token = credentials.credentials
     for path in BEARER_DIR.glob("*.json"):
         with open(path, "r", encoding="utf-8") as f:
             try:
