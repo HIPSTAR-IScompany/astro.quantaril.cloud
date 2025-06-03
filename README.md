@@ -110,8 +110,8 @@ docker compose up -d
 ## 📄 .env 設定例
 
 ```dotenv
-CHROMA_BIND=true
-CHROMA_BIND_STORE="/store"
+CHROMA_BIND=true  # 起動時に内部で `chroma run` を実行して ChromaDB を立ち上げます
+CHROMA_BIND_STORE="/store"  # `--path` に渡される永続ストレージ
 SCHEMA_DIR="/schemas"
 ASTRO_API_KEY_MODE="Bearer"
 ASTRO_API_KEY_DIR="/bearer"

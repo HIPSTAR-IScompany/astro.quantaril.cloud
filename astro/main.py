@@ -5,6 +5,8 @@ from pathlib import Path
 from datetime import datetime
 import os
 import json
+import asyncio
+import subprocess
 
 from astro.utils import load_config, load_dotenv_config
 from astro.embedder import create_embedder
@@ -25,12 +27,34 @@ embed_text = create_embedder(config)
 astro = FastAPI()
 # Chromaクライアントは起動時に非同期で初期化する
 chroma_client = None
+chroma_process = None
 
 @astro.on_event("startup")
 async def startup_event() -> None:
     """アプリ起動時に Chroma クライアントを初期化する"""
-    global chroma_client
+    global chroma_client, chroma_process
+    if config.chroma_bind:
+        chroma_process = subprocess.Popen(
+            [
+                "chroma",
+                "run",
+                "--path",
+                config.chroma_bind_store,
+                "--host",
+                config.chroma_host,
+                "--port",
+                str(config.chroma_port),
+            ]
+        )
+        await asyncio.sleep(3)
     chroma_client = await get_chroma_client()
+
+@astro.on_event("shutdown")
+async def shutdown_event() -> None:
+    global chroma_process
+    if chroma_process is not None:
+        chroma_process.terminate()
+        chroma_process.wait()
 SCHEMA_DIR = Path(config.schema_dir)
 BEARER_DIR = Path(config.astro_api_key_dir)
 
