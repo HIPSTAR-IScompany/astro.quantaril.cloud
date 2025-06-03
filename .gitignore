@@ -175,3 +175,6 @@ cython_debug/
 
 # APIKey Data
 bearer/*.json
+
+# database
+store/*.*

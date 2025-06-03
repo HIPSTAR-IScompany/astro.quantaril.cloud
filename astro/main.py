@@ -24,7 +24,28 @@ from astro.models import DocumentItem, SchemaDefinition
 load_dotenv_config()
 config = load_config()
 embed_text = create_embedder(config)
-astro = FastAPI()
+astro = FastAPI(
+    title=config.api_title,
+    description=config.api_description,
+    version=config.api_version,
+    contact={
+        "name": config.api_contact_name,
+        "url": config.api_contact_url,
+        "email": config.api_contact_email,
+    },
+    license_info={
+        "name": "Apache2.0 License Copyright (c) 齋藤みつる ふさもふ統合思念体 HIPSTAR",
+        "url": "https://github.com/HIPSTAR-IScompany/astro.quantaril.cloud/blob/main/LICENSE",
+    },
+    openapi_extra={
+        "x-origin": {
+            "name": "齋藤みつる",
+            "organization": "HIPSTAR / ふさもふ統合思念体",
+            "url": "https://github.com/HIPSTAR-IScompany/astro.quantaril.cloud",
+            "comment": "このOpenAPI定義はフォールド構文Astroの正規バージョンに基づく"
+        }
+    }
+)
 # Chromaクライアントは起動時に非同期で初期化する
 chroma_client = None
 chroma_process = None

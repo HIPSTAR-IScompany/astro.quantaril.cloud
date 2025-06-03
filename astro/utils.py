@@ -20,6 +20,14 @@ class AppConfig(BaseSettings):
     openai_api_key: str
     openai_embedding_model: str = Field(default="text-embedding-3-small")
 
+    api_title: str = Field(default="astro.quantaril.cloud")
+    api_description: str = Field(default="Fold構文によるAPIインターフェース")
+    api_version: str = Field(default="0.1.0")
+
+    api_contact_name: str = Field(default="ふさもふ統合思念体 齋藤 みつる")
+    api_contact_url: str = Field(default="https://quantaril.cloud")
+    api_contact_email: str = Field(default="info@i-s.dev")
+
     instance_name: str
     deploy_env: Literal["local", "production", "staging", "dev", "docker"]
     role: str
