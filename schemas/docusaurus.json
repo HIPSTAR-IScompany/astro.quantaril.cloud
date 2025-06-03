@@ -1,11 +1,29 @@
 {
     "name": "docusaurus",
     "description": "Docusaurus系ドキュメント",
+    "version": "0.2.0-alpha",
+    "primary_key": "id",
     "fields": [
-        "id",
-        "title",
-        "body",
-        "tags"
+        {
+            "name": "id",
+            "type": "string",
+            "description": "ドキュメント一意識別子"
+        },
+        {
+            "name": "title",
+            "type": "string",
+            "description": "ドキュメントのタイトル"
+        },
+        {
+            "name": "body",
+            "type": "string",
+            "description": "本文（MarkdownやHTML形式含む）"
+        },
+        {
+            "name": "tags",
+            "type": "array",
+            "description": "分類や検索用タグ"
+        }
     ],
     "required": [
         "id",

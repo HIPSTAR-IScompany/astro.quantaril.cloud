@@ -82,7 +82,7 @@ BEARER_DIR = Path(config.astro_api_key_dir)
 # ────────────────────────────────
 # APIキー検証ユーティリティ
 # ────────────────────────────────
-def validate_api_key(authorization: Optional[str] = Header(None)) -> None:
+def validate_api_key(authorization: Optional[str] = Header(None, alias="Authorization")) -> None:
     if config.astro_api_key_mode.lower() != "bearer":
         return
     if not authorization:
@@ -210,7 +210,7 @@ async def get_collection_type_by_id(collection_id: str, _: None = Depends(valida
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@astro.get("/schemas", response_model=List[SchemaDefinition])
+@astro.get("/schemas", response_model=List[SchemaDefinition], response_model_exclude_unset=True)
 def list_schemas(_: None = Depends(validate_api_key)):
     try:
         schemas = []

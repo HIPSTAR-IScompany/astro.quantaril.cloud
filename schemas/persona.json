@@ -1,11 +1,29 @@
 {
     "name": "persona",
     "description": "トランザクション人格構造体",
+    "version": "0.1.0-b",
+    "primary_key": "id",
     "fields": [
-        "id",
-        "text",
-        "role",
-        "timestamp"
+        {
+            "name": "id",
+            "type": "string",
+            "description": "一意識別子（人格ID）"
+        },
+        {
+            "name": "text",
+            "type": "string",
+            "description": "人格の発話またはメッセージ内容"
+        },
+        {
+            "name": "role",
+            "type": "string",
+            "description": "人格の役割（例：system, user, assistant）"
+        },
+        {
+            "name": "timestamp",
+            "type": "string",
+            "description": "発話時刻（ISO形式推奨）"
+        }
     ],
     "required": [
         "id",

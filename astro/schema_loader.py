@@ -1,14 +1,22 @@
-# app/schema_loader.py
 import os
 import json
-from typing import List
+from typing import List, Union, Optional,Dict
 from pathlib import Path
 from pydantic import BaseModel
 
+
+class FieldDefinition(BaseModel):
+    name: str
+    type: str
+    description: Optional[str] = None
+
+
 class SchemaDefinition(BaseModel):
     name: str
-    fields: List[str]
     description: str
+    version: Optional[str] = None
+    primary_key: Optional[str] = "id"
+    fields: List[Union[str, Dict[str, str]]] 
     required: List[str]
 
 def load_all_schemas(schema_dir: str = "schemas") -> List[SchemaDefinition]:
