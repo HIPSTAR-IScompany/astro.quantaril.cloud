@@ -19,7 +19,13 @@ from astro.chroma_client import (
     get_collection_documents,
     get_collection_type
 )
-from astro.schema_loader import SchemaDefinition,FieldDefinition
+from astro.schema_loader import (
+    SchemaDefinition,
+    load_schema,
+    save_schema,
+    create_model_from_schema,
+    load_all_schemas,
+)
 
 # ─── 初期化 ───
 load_dotenv_config()
@@ -100,10 +106,12 @@ async def shutdown_event() -> None:
         chroma_process.wait()
 SCHEMA_DIR = Path(config.schema_dir)
 BEARER_DIR = Path(config.astro_api_key_dir)
+META_DIR = Path("meta")
 
 security_scheme = HTTPBearer(
     bearerFormat="JWT",
     scheme_name="BearerAuth",
+    description="必要に応じて入力",
     auto_error=False,
 )
 
@@ -158,7 +166,7 @@ class QueryRequest(BaseModel):
 
 
 class AddRequest(BaseModel):
-    items: List[DocumentItem]
+    items: List[dict]
     collection: str
 
 
@@ -202,8 +210,22 @@ async def query(req: QueryRequest, _: None = Depends(validate_api_key)):
 @astro.post("/add")
 async def add(req: AddRequest, _: None = Depends(validate_api_key)):
     try:
-        result = await add_to_collection(chroma_client, req.collection, req.items)
+        schema = load_schema(req.collection)
+        DynamicModel = create_model_from_schema(schema)
+        validated_items = []
+        for item in req.items:
+            try:
+                validated = DynamicModel(**item)
+                validated_items.append(validated.model_dump())
+            except Exception as ve:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"登録データがスキーマに適合しません: {ve}"
+                )
+        result = await add_to_collection(chroma_client, req.collection, validated_items)
         return {"status": "ok", "count": result}
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -215,8 +237,11 @@ async def create_collection_endpoint(req: CreateCollectionRequest, _: None = Dep
         schema_path = SCHEMA_DIR / req.schema_file
         if not schema_path.exists():
             raise HTTPException(status_code=400, detail="Schema not found.")
-
+        with schema_path.open("r", encoding="utf-8") as f:
+            data = json.load(f)
+            schema = SchemaDefinition(**data)
         result = await create_collection(chroma_client, req.name, req.schema_file)
+        save_schema(req.name, schema, meta_dir=META_DIR)
         return {"status": "created", "collection_id": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -240,15 +265,32 @@ async def get_collection_type_by_id(collection_id: str, _: None = Depends(valida
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@astro.get("/collection/{collection_name}/schema", response_model=SchemaDefinition)
+def get_collection_schema(collection_name: str, _: None = Depends(validate_api_key)):
+    try:
+        schema = load_schema(collection_name)
+        return schema
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@astro.get("/collections")
+async def list_collections(_: None = Depends(validate_api_key)):
+    try:
+        colls = await chroma_client.list_collections()
+        return {
+            "collections": [
+                {"name": c.name, "schema": c.metadata.get("schema_file")}
+                for c in colls
+            ]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @astro.get("/schemas", response_model=List[SchemaDefinition], response_model_exclude_unset=True)
 def list_schemas(_: None = Depends(validate_api_key)):
     try:
-        schemas = []
-        for path in SCHEMA_DIR.glob("*.json"):
-            with path.open("r", encoding="utf-8") as file:
-                data = json.load(file)
-                schema = SchemaDefinition(**data)
-                schemas.append(schema)
-        return schemas
+        return load_all_schemas(SCHEMA_DIR)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

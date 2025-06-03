@@ -1,13 +1,12 @@
 # app/chroma_client.py
 
 import os
-from typing import List, Sequence, Any
+from typing import List, Sequence, Any, Dict
 
 import chromadb
 from chromadb import AsyncHttpClient
 from chromadb.api.async_client import AsyncClientAPI
 
-from astro.models import DocumentItem
 
 
 # 非同期Chroma HTTPクライアント取得
@@ -33,13 +32,13 @@ async def query_collection(
 async def add_to_collection(
     client: AsyncClientAPI,
     collection: str,
-    items: List[DocumentItem],
+    items: List[Dict[str, Any]],
 ) -> int:
     """ドキュメントをコレクションへ追加する。"""
     coll = await client.get_collection(name=collection)
-    ids = [item.id for item in items]
-    documents = [item.text for item in items]
-    metadatas = [item.metadata or {} for item in items]
+    ids = [str(item.get("id")) for item in items]
+    documents = [json.dumps(item, ensure_ascii=False) for item in items]
+    metadatas = [{k: v for k, v in item.items() if k != "id"} for item in items]
     await coll.add(ids=ids, documents=documents, metadatas=metadatas)
     return len(items)
 
