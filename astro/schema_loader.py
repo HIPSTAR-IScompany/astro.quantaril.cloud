@@ -10,13 +10,18 @@ class FieldDefinition(BaseModel):
     type: str
     description: Optional[str] = None
 
+class FieldItem(BaseModel):
+    name: str
+    type: str
+    description: Optional[str] = None
+
 
 class SchemaDefinition(BaseModel):
     name: str
     description: str
     version: Optional[str] = None
     primary_key: Optional[str] = "id"
-    fields: List[Union[str, Dict[str, str]]] 
+    fields: List[FieldItem]
     required: List[str]
 
 def load_all_schemas(schema_dir: str = "schemas") -> List[SchemaDefinition]:

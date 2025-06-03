@@ -19,7 +19,7 @@ from astro.chroma_client import (
     get_collection_documents,
     get_collection_type
 )
-from astro.models import DocumentItem, SchemaDefinition
+from astro.schema_loader import SchemaDefinition,FieldDefinition
 
 # ─── 初期化 ───
 load_dotenv_config()
