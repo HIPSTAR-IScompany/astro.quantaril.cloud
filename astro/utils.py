@@ -27,6 +27,7 @@ class AppConfig(BaseSettings):
     api_contact_name: str = Field(default="ふさもふ統合思念体 齋藤 みつる")
     api_contact_url: str = Field(default="https://quantaril.cloud")
     api_contact_email: str = Field(default="info@i-s.dev")
+    port: str = Field(default="8040")
 
     instance_name: str
     deploy_env: Literal["local", "production", "staging", "dev", "docker"]
