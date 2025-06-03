@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 from typing import Literal
 from pathlib import Path
+from dotenv import load_dotenv
 
 # ─── アプリ設定クラス ───
 class AppConfig(BaseSettings):
@@ -27,6 +28,10 @@ class AppConfig(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
+def load_dotenv_config(env_file: str = ".env") -> None:
+    """Load environment variables from a dotenv file."""
+    load_dotenv(env_file)
+
 
 # ─── 設定読み込み ───
 def load_config(env_path: str = ".env") -> AppConfig:
@@ -38,3 +43,4 @@ def load_config(env_path: str = ".env") -> AppConfig:
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 def resolve_schema_path(relative_path: str) -> Path:
     return PROJECT_ROOT / relative_path
+

@@ -86,6 +86,7 @@ pip install -r requirements.txt
 ```bash
 uvicorn astro.main:astro --reload --host 0.0.0.0 --port 8000
 ```
+The command above automatically loads environment variables from `.env`.
 
 ### Docker での起動
 
