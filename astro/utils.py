@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 # ─── アプリ設定クラス ───
 class AppConfig(BaseSettings):
     chroma_bind: bool = Field(default=True)
-    chroma_bind_store: str = Field(default="/store")
+    chroma_bind_store: str = Field(default="store")
+
 
     schema_dir: str = Field(default="schemas")
 
