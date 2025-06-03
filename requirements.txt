@@ -62,6 +62,7 @@ protobuf==5.29.5
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pydantic==2.11.5
+pydantic-settings>=2.1
 pydantic_core==2.33.2
 Pygments==2.19.1
 PyPika==0.48.9
