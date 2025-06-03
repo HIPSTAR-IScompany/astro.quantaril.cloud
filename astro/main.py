@@ -91,17 +91,25 @@ def validate_api_key(authorization: Optional[str] = Header(None)) -> None:
     token = authorization.replace("Bearer ", "").strip()
     for path in BEARER_DIR.glob("*.json"):
         with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if data.get("key") == token:
-                deadline = data.get("ExpiryDeadline")
-                if deadline:
-                    try:
-                        expiry = datetime.strptime(deadline, "%Y-%m-%d %H:%M:%S %Z")
-                        if datetime.now().astimezone() > expiry:
-                            raise HTTPException(status_code=403, detail="API key expired")
-                    except Exception:
-                        raise HTTPException(status_code=500, detail="Invalid ExpiryDeadline format")
-                return
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                continue
+
+            records = data if isinstance(data, list) else [data]
+            for record in records:
+                if not isinstance(record, dict):
+                    continue
+                if record.get("key") == token:
+                    deadline = record.get("ExpiryDeadline")
+                    if deadline:
+                        try:
+                            expiry = datetime.strptime(deadline, "%Y-%m-%d %H:%M:%S %Z")
+                            if datetime.now().astimezone() > expiry:
+                                raise HTTPException(status_code=403, detail="API key expired")
+                        except Exception:
+                            raise HTTPException(status_code=500, detail="Invalid ExpiryDeadline format")
+                    return
     raise HTTPException(status_code=403, detail="Invalid API key")
 
 # ────────────────────────────────
