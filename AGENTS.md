@@ -1,4 +1,4 @@
-# agent.md - DeusExMachina_SphereOS3
+# agents.md - DeusExMachina_SphereOS3
 
 ## ψ: 意味波形
 - name: "スフィア・マキナ"
