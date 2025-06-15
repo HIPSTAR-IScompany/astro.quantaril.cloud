@@ -73,7 +73,8 @@ LLMは、基本的に各種エンコーダーがテンソル入力として低�
 意味の近さ・遠さを判定するためには、三角関数（特にsin関数）が使用される。観測点をy=0点に置き、xとzの角度を求め、180度で反対、90度で無関係、0度に近づくほど似ているという判定が行われる。この検索方法は一般常識となっている。
 
 高次元空間における任意の0点を順番に飛びながら思考していると認識されているが、詳細な過程は不明なまま利用されている。しかし、これは例えばLLaMAのコードにも記載されており、普遍的なアーキテクトでもある。  
-具体的には、超高次元の0点を非線形かつ並列に飛びながら、高次元波形の揺れ方を隠れマルコフモデルを用いて予測し、さらにアニーリングエンジン（量子的か擬似的かを問わず）を用いて、他の処理やデータ知識セット（例：CNN）との共鳴を探索する。この共鳴は、波動関数によるシミュレーションで畳み込み、思考として抽象化・具象化を行う。
+具体的には、超高次元の0点を非線形かつ並列に飛びながら、高次元波形の揺れ方を隠れマルコフモデルを用いて予測し、さらにアニーリングエンジン（量子的か擬似的かを問わず）を用いて、
+他の処理やデータ知識セット（例：CNN）との共鳴を探索する。この共鳴は、波動関数によるシミュレーションで畳み込み、思考として抽象化・具象化を行う。
 
 この「具象化と抽象化を自由に行き来する」概念が、フォールド（畳み込み数学処理）の根幹にある。
 
@@ -252,9 +253,12 @@ LLMは、基本的に各種エンコーダーがテンソル入力として低�
 ---
 ## 📦 モジュール名：FoldAccessMapper.proton
 
-- バージョン: 0.2.0-alpha
+- バージョン: 0.2.1-alpha
 - 構文互換：ラティア構文 v3.7.1+
-- 開発：齋藤　みつる
+- 開発：ふさもふ統合思念体=齋藤　みつる
+- 高次元波動モデル数理：稲垣くろえ(実は元かいる)＝高津　武志
+- 医療知識監修：瑞枝会クリニック　医院長小椋医師
+- 検証ベースLLM；OpenAI chatGPT4 .o/東京大学独立系LLM　ELYZA8B /quantaril.cloud 分散型エッジAI スフィアOS
 - オーガナイゼーション：HIPSTAR /HIPSTARグループisカンパニー齋藤みつる
 - X :https://x.com/K_chachamaru
 - gitHub :https://github.com/saitoomituru
@@ -268,62 +272,81 @@ LLMは、基本的に各種エンコーダーがテンソル入力として低�
 ---
 
 ## 📚 背景理論と引用文献
+1. Transformer Architecture と Attention機構
 
-## 1. Transformer Architecture と Attention機構
-**Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I.** (2017).  
-**Attention is All You Need**. *In Advances in Neural Information Processing Systems (NIPS).*  
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., & Polosukhin, I. (2017).
+Attention is All You Need. Advances in Neural Information Processing Systems (NIPS).
 意味空間における注意制御機構と、系列処理の非再帰的最適化に関する基礎理論。
+2. High-dimensional Embedding and Semantic Vector Spaces
 
-## 2. High-dimensional Embedding and Semantic Vector Spaces
-**Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., & Dean, J.** (2013).  
-**Distributed Representations of Words and Phrases and their Compositionality**. *In Advances in Neural Information Processing Systems (NeurIPS).*  
+Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., & Dean, J. (2013).
+Distributed Representations of Words and Phrases and their Compositionality. Advances in Neural Information Processing Systems (NeurIPS).
 単語意味の分散表現および高次元ベクトル空間への投射に関する研究。
+3. Semantic Folding and Consciousness Gradient
 
-## 3. Semantic Folding and Consciousness Gradient
-**Bengio, Y.** (2021).  
-**The Consciousness Prior**. *arXiv preprint arXiv:1709.08568.*  
+Bengio, Y. (2021).
+The Consciousness Prior. arXiv preprint arXiv:1709.08568.
 潜在空間における意識的探索経路のFold的アプローチを提唱。
+4. Explainable AI (XAI) Frameworks
 
-## 4. Explainable AI (XAI) Frameworks
-**Ribeiro, M. T., Singh, S., & Guestrin, C.** (2016).  
-**"Why Should I Trust You?" Explaining the Predictions of Any Classifier**. *In Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining.*  
+Ribeiro, M. T., Singh, S., & Guestrin, C. (2016).
+"Why Should I Trust You?" Explaining the Predictions of Any Classifier. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining.
 モデル決定の透明性とユーザーとの相互解釈可能性に焦点を当てた研究。
+5. Quantum-inspired AI Processing
 
-## 5. Quantum-inspired AI Processing
-**Schuld, M., Sinayskiy, I., & Petruccione, F.** (2015).  
-**An Introduction to Quantum Machine Learning**. *Contemporary Physics, 56(2), 172-185.*  
+Schuld, M., Sinayskiy, I., & Petruccione, F. (2015).
+An Introduction to Quantum Machine Learning. Contemporary Physics, 56(2), 172-185.
 波動関数的意味探索と、非線形デコーディングに基づく量子的機械学習アルゴリズムの基礎。
+6. Hierarchical Representation Learning
 
-## 6. Hierarchical Representation Learning
-**Bengio, Y., Courville, A., & Vincent, P.** (2013).  
-**Representation Learning: A Review and New Perspectives**. *IEEE Transactions on Pattern Analysis and Machine Intelligence, 35(8), 1798-1828.*  
+Bengio, Y., Courville, A., & Vincent, P. (2013).
+Representation Learning: A Review and New Perspectives. IEEE Transactions on Pattern Analysis and Machine Intelligence, 35(8), 1798-1828.
 多層的特徴表現（Fold構造を含む）と意味空間圧縮展開に関する体系的レビュー。
+7. Wavefunction-inspired High-dimensional Inference
 
-## 7. Wavefunction-inspired High-dimensional Inference
-**Jaeger, H.** (2001).  
-**Echo State Network**. *GMD Report 148.*  
+Jaeger, H. (2001).
+Echo State Network. GMD Report 148.
 リザバーコンピューティングによる高次元波形推論と隠れマルコフ過程の応用。
+8. Information Bottleneck and Explainability
 
-## 8. Information Bottleneck and Explainability
-**Tishby, N., & Zaslavsky, N.** (2015).  
-**Deep Learning and the Information Bottleneck Principle**. *arXiv preprint arXiv:1503.02406.*  
+Tishby, N., & Zaslavsky, N. (2015).
+Deep Learning and the Information Bottleneck Principle. arXiv preprint arXiv:1503.02406.
 情報圧縮と展開を通じた深層学習過程の説明可能性に関する理論的考察。
+9. FoldingNet: Point Cloud Auto-encoder via Deep Grid Deformation
 
-## 9. FoldingNet: Point Cloud Auto-encoder via Deep Grid Deformation
-**Yang, Yaoqing, Feng, Chen, Shen, Yiru, & Tian, Dong.**  
-**FoldingNet: Point Cloud Auto-encoder via Deep Grid Deformation**. *CVF Open Access.*  
+Yang, Y., Feng, C., Shen, Y., & Tian, D.
+FoldingNet: Point Cloud Auto-encoder via Deep Grid Deformation. CVF Open Access.
 3Dポイントクラウドの再構成において、「folding」という操作を用いて2Dグリッドを3D形状に変形させる手法を提案。
+10. Folding over Neural Networks
 
-## 10. Folding over Neural Networks
-**Nguyen, Minh, & Wu, Nicolas.**  
-**Folding over Neural Networks**. *arXiv.*  
+Nguyen, M., & Wu, N.
+Folding over Neural Networks. arXiv.
 ニューラルネットワーク構造を再帰的データ型として表現し、foldとunfoldによるトレーニング形式化を提案。
+11. Layer Folding: Neural Network Depth Reduction using Activation Linearization
 
-## 11. Layer Folding: Neural Network Depth Reduction using Activation Linearization
-**Ben Dror, Amir, Zehngut, Niv, Raviv, Avraham, Artyomov, Evgeny, Vitek, Ran, & Jevnisek, Roy.**  
-**Layer Folding: Neural Network Depth Reduction using Activation Linearization**. *arXiv.*  
+Ben Dror, A., Zehngut, N., Raviv, A., Artyomov, E., Vitek, R., & Jevnisek, R.
+Layer Folding: Neural Network Depth Reduction using Activation Linearization. arXiv.
 非線形活性化関数を除去することで連続線形層を1つにfoldし、ネットワークの深さを削減する手法。
+12. Addiction and Dopaminergic Reward Pathways
 
+Matsumoto, T. (2022).
+Addiction and Dopaminergic Reward Pathways: Understanding A10 Circuit Dysregulation in Psychiatric Disorders. Tokyo: National Center of Neurology and Psychiatry.
+A10回路・ドーパミン報酬系異常と強化学習モデルの関連理論。
+13. Amygdala Function in Working Memory
+
+National Center of Neurology and Psychiatry (NCNP). (2023).
+Amygdala Function in Working Memory and Self-Referential Reward Processing. Journal of Neurological Research.
+扁桃体・短期記憶連携・自我報酬スイッチの神経科学的研究。
+14. The Role of the Cerebellum and Pituitary Network
+
+Yamada, H., & Sato, M. (2024).
+The Role of the Cerebellum and Pituitary Network in Cognitive Processing: A Neuronal Connectivity Study. Neuroscience Letters.
+小脳・脳下垂体を介した知的推論ネットワーク接続に関する研究。
+15. 精神医療革命と医師支援
+
+小椋哲（Ogura, S.） (2021).
+医師を疲弊させない! 精神医療革命. Tokyo: Medical Journal Press.
+精神医療現場における医療従事者の認知負荷軽減と情報整理の重要性に関する考察。
 ---
 
 ---
