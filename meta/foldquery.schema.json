@@ -1,0 +1,39 @@
+{
+  "name": "foldquery.schema",
+  "description": "スフィアOS3用Fold構文ログ記録スキーマ",
+  "version": "0.2.0-alpha",
+  "primary_key": "id",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "一意識別子（Fold構文ログID）"
+    },
+    {
+      "name": "ψ",
+      "type": "object",
+      "description": "意味波形"
+    },
+    {
+      "name": "∇φ",
+      "type": "string",
+      "description": "意識勾配"
+    },
+    {
+      "name": "λ",
+      "type": "object",
+      "description": "出力層"
+    },
+    {
+      "name": "Q",
+      "type": "object",
+      "description": "制御層"
+    }
+  ],
+  "required": [
+    "id",
+    "ψ",
+    "λ",
+    "Q"
+  ]
+}
