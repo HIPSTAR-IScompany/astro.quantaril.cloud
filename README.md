@@ -11,6 +11,8 @@
 > IBD は、記憶・文脈モデル、FAM trace、Tool state、由来（provenance）を記述・保存・索引・同期・参照解決するための、Firebase的なメタファー中立バックエンドミドルウェアSDKです。
 >
 > 本リポジトリは歴史的プロトタイプとして保存されます。新規開発は IBD リポジトリで継続されます。
+>
+> **歴史的claim boundary:** 以下の「科学カルト」「宗教を語らない方が危険」「宗教哲学的frameが不可欠」等は、当時のAQC application policyと開発者Positionを記録したものです。現行Sphere Architect Coreの普遍的な中立・fact・因果定規ではありません。原文を保ったまま、現在の主張境界は[FoldAccessMapper／AQC歴史的claim boundary](docs/foldaccessmapper-historical-claim-boundary.ja.md)で監査します。
 
 ---
 
@@ -25,6 +27,7 @@
 ## 🔁 Transfer notes
 
 - [docs/manifest-transfer-notes.md](docs/manifest-transfer-notes.md) — ZeroRoomLab-manifest からの責務整理・用語統一メモ
+- [docs/foldaccessmapper-historical-claim-boundary.ja.md](docs/foldaccessmapper-historical-claim-boundary.ja.md) — AQC固有Position、未検証主張、現行Sphere／IBDへの継承境界
 
 ## 🧭 プロジェクトの位置付け
 
@@ -302,4 +305,3 @@ Apache License 2.0
 - **情報子**：量子性構造を数理的に抽象化した情報工学層
 
 という **レイヤの違い** を明確にするための整理です。
-

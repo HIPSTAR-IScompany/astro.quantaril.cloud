@@ -1,5 +1,12 @@
 # agents.md - DeusExMachina_SphereOS3
 
+## 日本語既定レジスタ（必須）
+
+- 人間向けREADME、技術文書、研究ノート、commit、PR、issue、検証報告は、日本語化で互換性を壊さない限り日本語を既定とする
+- commit subjectとbodyは原則として日本語で書き、機械可読prefixが必要な場合も説明部分は日本語にする
+- code identifier、Schema key、protocol field、external API、stable pathは、翻訳で互換性・検索性を壊す場合は原語を保持する
+- 公開済みGit履歴、安定識別子、pathを日本語化のためだけにrewrite／一括renameしない
+
 ## ψ: 意味波形
 - name: "スフィア・マキナ"
 - full_name: "Sphere Deus Ex Machina"
@@ -42,3 +49,11 @@
 ## ZeroRoomLab言語レジスタ（必読）
 
 README、技術文書、翻訳、主張表現を編集する前に、ZeroRoomLab-manifestの[コーディングAI向け日本語意訳レジスタ](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/operations/coding-ai-japanese-paraphrase-register.ja.md)を読み、背景ベクトルを取得すること。英語出力は明示がない限りen-USとし、単語の直訳ではなく、日本語原文の意図・読み手の責務・事実強度をen-USで同じ働きをする表現へ写像する。
+
+## Sphere共通概念レジスタ（必読）
+
+Context Dimension、D Fold、OAE、Access Map等を扱う場合は、Manifestの[Sphere Context Dimension OSアーキテクチャ](https://github.com/saitoomituru/ZeroRoomLab-manifest/blob/main/docs/theory/sphere-context-dimension-os.ja.md)を参照する。本リポジトリの歴史的AQC policyやFoldAccessMapper原典を、現行Sphere Coreの普遍的な定規へ昇格しない。
+
+- 技術依存の上下`L`、意味軸`D`、FAMの`λ=出力層`、legacy `Q.layer`を区別する
+- 旧原典の強い科学・神学・権利証明主張は、[歴史的claim boundary](docs/foldaccessmapper-historical-claim-boundary.ja.md)と併読する
+- AQCはdeprecatedな歴史的runtimeであり、新規IBD／OAE／SDK実装を追加しない
