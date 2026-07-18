@@ -22,6 +22,10 @@
 
 ---
 
+## 🔁 Transfer notes
+
+- [docs/manifest-transfer-notes.md](docs/manifest-transfer-notes.md) — ZeroRoomLab-manifest からの責務整理・用語統一メモ
+
 ## 🧭 プロジェクトの位置付け
 
 Astro Quantaril Cloud API は、以下を目的とした **エージェント指向 AI 基盤**です。
